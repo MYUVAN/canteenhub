@@ -1,0 +1,160 @@
+import { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
+
+const OwnerDashboard = () => {
+    const [orders, setOrders] = useState([]);
+    const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0 });
+    const [loading, setLoading] = useState(true);
+
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+    useEffect(() => {
+        fetchOrders();
+
+        // Listen for new orders instantly
+        const socket = io('http://localhost:5000');
+        socket.on('new-order', (newOrder) => {
+            setOrders(prev => [...prev, newOrder]);
+            // Play a sound or show a browser notification if desired
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
+    const fetchOrders = async () => {
+        try {
+            const res = await fetch('http://localhost:5000/api/orders', {
+                headers: { Authorization: `Bearer ${userInfo.token}` }
+            });
+            const data = await res.json();
+
+            setOrders(data);
+            calculateStats(data);
+            setLoading(false);
+        } catch (err) {
+            console.error(err);
+            setLoading(false);
+        }
+    };
+
+    const calculateStats = (data) => {
+        const today = new Date().toDateString();
+        let currentOrders = data.filter(o => new Date(o.createdAt).toDateString() === today);
+
+        setStats({
+            total: currentOrders.length,
+            pending: currentOrders.filter(o => o.status === 'Ordered' || o.status === 'Preparing').length,
+            completed: currentOrders.filter(o => o.status === 'Completed').length,
+        });
+    };
+
+    const updateStatus = async (id, status) => {
+        try {
+            const res = await fetch(`http://localhost:5000/api/orders/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                },
+                body: JSON.stringify({ status })
+            });
+
+            if (res.ok) {
+                const updatedOrder = await res.json();
+                const newOrders = orders.map(o => o._id === id ? updatedOrder : o);
+                setOrders(newOrders);
+                calculateStats(newOrders);
+            }
+        } catch (err) {
+            alert('Failed to update status');
+        }
+    };
+
+    return (
+        <div className="dashboard-grid">
+            <aside className="sidebar">
+                <nav className="sidebar-nav">
+                    <a href="/owner-dashboard" className="sidebar-link active">Live Queue</a>
+                    <a href="/owner-menu" className="sidebar-link">Menu Manager</a>
+                </nav>
+            </aside>
+
+            <div>
+                <h1 className="header-title">Live Order Queue</h1>
+
+                {/* Stats Section */}
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <div className="stat-title">Orders Today</div>
+                        <div className="stat-value">{stats.total}</div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeftColor: 'var(--color-warning)' }}>
+                        <div className="stat-title">Pending</div>
+                        <div className="stat-value text-warning">{stats.pending}</div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeftColor: 'var(--color-success)' }}>
+                        <div className="stat-title">Completed</div>
+                        <div className="stat-value text-success">{stats.completed}</div>
+                    </div>
+                </div>
+
+                {/* Queue Section */}
+                {loading ? (
+                    <p>Loading queue...</p>
+                ) : orders.length === 0 ? (
+                    <div className="card" style={{ padding: '3rem', textAlign: 'center' }}>
+                        <p>No orders yet today.</p>
+                    </div>
+                ) : (
+                    <div className="queue-list">
+                        {orders.filter(o => o.status !== 'Completed').map(order => (
+                            <div className={`queue-item ${order.status.toLowerCase().replace(' ', '-')}`} key={order._id}>
+
+                                <div className="token-box">
+                                    <div className="token-label">TOKEN</div>
+                                    <div className="token-num">#{order.tokenNumber}</div>
+                                </div>
+
+                                <div className="order-details-col">
+                                    <div style={{ fontWeight: 600 }}>
+                                        Student ID: {order.user ? order.user.studentId : 'Unknown'}
+                                    </div>
+                                    <div className="items-list">
+                                        {order.orderItems.map((item, i) => (
+                                            <span key={i}>{item.qty}x {item.name}{i < order.orderItems.length - 1 ? ', ' : ''}</span>
+                                        ))}
+                                    </div>
+                                    <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: '0.25rem' }}>
+                                        Ordered at {new Date(order.createdAt).toLocaleTimeString()}
+                                    </div>
+                                </div>
+
+                                <div className="queue-actions">
+                                    {order.status === 'Ordered' && (
+                                        <button className="btn btn-outline" onClick={() => updateStatus(order._id, 'Preparing')}>
+                                            Start Prep
+                                        </button>
+                                    )}
+                                    {order.status === 'Preparing' && (
+                                        <button className="btn btn-primary" onClick={() => updateStatus(order._id, 'Ready for Pickup')}>
+                                            Mark Ready
+                                        </button>
+                                    )}
+                                    {order.status === 'Ready for Pickup' && (
+                                        <button className="btn btn-outline" onClick={() => updateStatus(order._id, 'Completed')} style={{ borderColor: 'var(--color-success)', color: 'var(--color-success)' }}>
+                                            Delivered
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default OwnerDashboard;

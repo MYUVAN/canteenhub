@@ -1,0 +1,100 @@
+{
+  "users": [
+    {
+      "_id": "1",
+      "name": "Demo Student",
+      "studentId": "stu123",
+      "password": "password",
+      "role": "student"
+    },
+    {
+      "_id": "2",
+      "name": "Admin User",
+      "studentId": "admin",
+      "password": "admin",
+      "role": "admin"
+    }
+  ],
+  "foodItems": [
+    {
+      "_id": "1",
+      "name": "Masala Dosa",
+      "price": 60,
+      "category": "Meals",
+      "image": "https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "isAvailable": true
+    },
+    {
+      "_id": "2",
+      "name": "Veg Noodles",
+      "price": 80,
+      "category": "Meals",
+      "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "isAvailable": true
+    },
+    {
+      "_id": "3",
+      "name": "Chicken Biryani",
+      "price": 150,
+      "category": "Meals",
+      "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "isAvailable": true
+    },
+    {
+      "_id": "4",
+      "name": "Cold Coffee",
+      "price": 50,
+      "category": "Beverages",
+      "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "isAvailable": true
+    }
+  ],
+  "orders": [
+    {
+      "_id": "c3122c5d-ef55-4aea-a819-8e6315297bfd",
+      "orderItems": [
+        {
+          "name": "Veg Noodles",
+          "qty": 2,
+          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 80,
+          "foodItem": "2"
+        }
+      ],
+      "user": {
+        "_id": "1",
+        "name": "Demo Student",
+        "studentId": "stu123",
+        "password": "password",
+        "role": "student"
+      },
+      "totalPrice": 160,
+      "tokenNumber": 1,
+      "status": "Ready for Pickup",
+      "createdAt": "2026-02-27T04:12:01.102Z"
+    },
+    {
+      "_id": "cb83fe4d-ca17-4096-806e-9bc3a11e83ce",
+      "orderItems": [
+        {
+          "name": "Chicken Biryani",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 150,
+          "foodItem": "3"
+        }
+      ],
+      "user": {
+        "_id": "1",
+        "name": "Demo Student",
+        "studentId": "stu123",
+        "password": "password",
+        "role": "student"
+      },
+      "totalPrice": 150,
+      "tokenNumber": 2,
+      "status": "Ordered",
+      "createdAt": "2026-02-27T04:13:31.008Z"
+    }
+  ]
+}
