@@ -9,35 +9,40 @@ const OwnerDashboard = () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
     useEffect(() => {
-        fetchOrders();
-
         // Listen for new orders instantly
-        const socket = io('http://localhost:5000');
-        socket.on('new-order', (newOrder) => {
-            setOrders(prev => [...prev, newOrder]);
-            // Play a sound or show a browser notification if desired
+        const socket = io();
+
+        socket.on('newOrder', (order) => {
+            setOrders((prev) => [order, ...prev]);
         });
 
-        return () => {
-            socket.disconnect();
-        };
+        socket.on('orderStatusUpdated', ({ orderId, status }) => {
+            setOrders((prev) =>
+                prev.map((o) => (o._id === orderId ? { ...o, status } : o))
+            );
+        });
+
+        return () => socket.disconnect();
     }, []);
 
-    const fetchOrders = async () => {
-        try {
-            const res = await fetch('http://localhost:5000/api/orders', {
-                headers: { Authorization: `Bearer ${userInfo.token}` }
-            });
-            const data = await res.json();
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const res = await fetch('/api/orders', {
+                    headers: { Authorization: `Bearer ${userInfo.token}` }
+                });
+                const data = await res.json();
 
-            setOrders(data);
-            calculateStats(data);
-            setLoading(false);
-        } catch (err) {
-            console.error(err);
-            setLoading(false);
-        }
-    };
+                setOrders(data);
+                calculateStats(data);
+                setLoading(false);
+            } catch (err) {
+                console.error(err);
+                setLoading(false);
+            }
+        };
+        fetchOrders();
+    }, [userInfo.token]);
 
     const calculateStats = (data) => {
         const today = new Date().toDateString();
@@ -52,7 +57,7 @@ const OwnerDashboard = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/orders/${id}/status`, {
+            const res = await fetch(`/api/orders/${id}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

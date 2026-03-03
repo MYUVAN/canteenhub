@@ -23,7 +23,7 @@ const ManageMenu = () => {
 
     const fetchMenu = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/menu');
+            const res = await fetch('/api/menu');
             const data = await res.json();
             setMenu(data);
             setLoading(false);
@@ -60,8 +60,8 @@ const ManageMenu = () => {
         e.preventDefault();
 
         const url = editId
-            ? `http://localhost:5000/api/menu/${editId}`
-            : 'http://localhost:5000/api/menu';
+            ? `/api/menu/${editId}`
+            : '/api/menu';
 
         const method = editId ? 'PUT' : 'POST';
 
@@ -88,7 +88,7 @@ const ManageMenu = () => {
 
     const toggleAvailability = async (id, currentStatus) => {
         try {
-            await fetch(`http://localhost:5000/api/menu/${id}`, {
+            await fetch(`/api/menu/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const ManageMenu = () => {
     const deleteItem = async (id) => {
         if (!window.confirm('Are you sure you want to delete this item?')) return;
         try {
-            await fetch(`http://localhost:5000/api/menu/${id}`, {
+            await fetch(`/api/menu/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`

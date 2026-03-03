@@ -11,7 +11,7 @@ const OrderTracking = () => {
         fetchMyOrders();
 
         // Socket.io connection for real-time order updates
-        const socket = io('http://localhost:5000');
+        const socket = io();
 
         if (userInfo && userInfo._id) {
             socket.on(`order-status-${userInfo._id}`, (updatedOrder) => {
@@ -32,7 +32,7 @@ const OrderTracking = () => {
 
     const fetchMyOrders = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/orders/myorders', {
+            const res = await fetch('/api/orders/myorders', {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`
                 }

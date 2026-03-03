@@ -12,7 +12,7 @@ const Home = () => {
 
     const fetchMenu = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/menu');
+            const res = await fetch('/api/menu');
             const data = await res.json();
             setMenu(data);
             setLoading(false);
@@ -60,7 +60,7 @@ const Home = () => {
         }));
 
         try {
-            const res = await fetch('http://localhost:5000/api/orders', {
+            const res = await fetch('/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
