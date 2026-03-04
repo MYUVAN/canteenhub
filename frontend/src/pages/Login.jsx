@@ -68,7 +68,7 @@ const Login = ({ setUser }) => {
 
                 <form onSubmit={submitHandler}>
                     <div className="form-group">
-                        <label className="form-label" htmlFor="studentId">Student ID</label>
+                        <label className="form-label" htmlFor="studentId">Username / Student ID</label>
                         <input
                             type="text"
                             id="studentId"
@@ -96,6 +96,10 @@ const Login = ({ setUser }) => {
                     <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', padding: '1rem' }} disabled={loading}>
                         {loading ? 'Logging in...' : 'Student Login'}
                     </button>
+
+                    <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.95rem' }}>
+                        Don't have an account? <Link to="/register" style={{ color: 'var(--color-primary)', fontWeight: 600 }}>Register Here</Link>
+                    </div>
                 </form>
 
                 <div className="auth-switch" style={{ marginTop: '2rem', fontSize: '0.95rem' }}>

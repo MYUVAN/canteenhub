@@ -2,6 +2,7 @@ import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 import Login from './pages/Login';
+import Register from './pages/Register';
 import AdminLogin from './pages/AdminLogin';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
@@ -29,6 +30,7 @@ function App() {
         <main className={user ? "main-content" : ""}>
           <Routes>
             <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/admin-login" element={<AdminLogin setUser={setUser} />} />
 
             {/* Student Routes */}
