@@ -26,7 +26,7 @@ const dbFile = path.resolve('db.json');
 const defaultData = {
     users: [
         { _id: '1', name: 'Demo Student', studentId: 'stu123', password: 'password', role: 'student' },
-        { _id: '2', name: 'Admin User', studentId: 'admin', password: 'admin', role: 'admin' }
+        { _id: '2', name: 'Admin User', studentId: 'admin', username: 'admin', password: '2067', role: 'admin' }
     ],
     foodItems: [
         { _id: '1', name: 'Masala Dosa', price: 60, category: 'Meals', image: 'https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', isAvailable: true },

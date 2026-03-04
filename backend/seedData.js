@@ -79,7 +79,8 @@ const importData = async () => {
         await User.create({
             name: 'Canteen Admin',
             studentId: 'admin',
-            password: 'admin', // Very simple password for demo
+            username: 'admin',
+            password: '2067', // Updated admin password
             role: 'admin'
         });
 
