@@ -11,11 +11,12 @@
       "_id": "2",
       "name": "Admin User",
       "studentId": "admin",
-      "password": "admin",
+      "username": "admin",
+      "password": "2067",
       "role": "admin"
     },
     {
-      "_id": "1772616580564",
+      "_id": "1772618445375",
       "name": "Yuvaraj C J",
       "username": "yuvaraj_cj",
       "studentId": "yuvaraj_cj",
@@ -23,28 +24,6 @@
       "userType": "Hosteller",
       "email": "yuvaraj05sekar@gmail.com",
       "password": "20675601",
-      "role": "student"
-    },
-    {
-      "_id": "1772617439178",
-      "name": "yogeshwaran S",
-      "username": "yogesh_s",
-      "studentId": "yogesh_s",
-      "regNo": "927623BEC249",
-      "userType": "Dayscholar",
-      "email": "yogeshsubramaniyum@gmail.com",
-      "password": "1234567",
-      "role": "student"
-    },
-    {
-      "_id": "1772617697592",
-      "name": "Yasvonth V L",
-      "username": "yasva_v_l",
-      "studentId": "yasva_v_l",
-      "regNo": "927623bec246",
-      "userType": "Hosteller",
-      "email": "yasvonthlakshmanan@gmail.com",
-      "password": "1234567",
       "role": "student"
     }
   ],
@@ -54,7 +33,7 @@
       "name": "Masala Dosa",
       "price": 60,
       "category": "Meals",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Rameshwaram_Cafe_Dosa.jpg/500px-Rameshwaram_Cafe_Dosa.jpg",
+      "image": "https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "isAvailable": true
     },
     {
@@ -84,94 +63,11 @@
   ],
   "orders": [
     {
-      "_id": "c3122c5d-ef55-4aea-a819-8e6315297bfd",
+      "_id": "219db0e0-a0aa-4084-bd27-03499f1130e6",
       "orderItems": [
         {
-          "name": "Veg Noodles",
+          "name": "Masala Dosa",
           "qty": 2,
-          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 80,
-          "foodItem": "2"
-        }
-      ],
-      "user": {
-        "_id": "1",
-        "name": "Demo Student",
-        "studentId": "stu123",
-        "password": "password",
-        "role": "student"
-      },
-      "totalPrice": 160,
-      "tokenNumber": 1,
-      "status": "Ready for Pickup",
-      "createdAt": "2026-02-27T04:12:01.102Z"
-    },
-    {
-      "_id": "cb83fe4d-ca17-4096-806e-9bc3a11e83ce",
-      "orderItems": [
-        {
-          "name": "Chicken Biryani",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 150,
-          "foodItem": "3"
-        }
-      ],
-      "user": {
-        "_id": "1",
-        "name": "Demo Student",
-        "studentId": "stu123",
-        "password": "password",
-        "role": "student"
-      },
-      "totalPrice": 150,
-      "tokenNumber": 2,
-      "status": "Ordered",
-      "createdAt": "2026-02-27T04:13:31.008Z"
-    },
-    {
-      "_id": "51735107-5f29-4dd5-bfb8-dd9942a5b651",
-      "orderItems": [
-        {
-          "name": "Veg Noodles",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 80,
-          "foodItem": "2"
-        },
-        {
-          "name": "Chicken Biryani",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 150,
-          "foodItem": "3"
-        },
-        {
-          "name": "Masala Dosa",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 60,
-          "foodItem": "1"
-        }
-      ],
-      "user": {
-        "_id": "1",
-        "name": "Demo Student",
-        "studentId": "stu123",
-        "password": "password",
-        "role": "student"
-      },
-      "totalPrice": 290,
-      "tokenNumber": 1,
-      "status": "Completed",
-      "createdAt": "2026-03-04T04:42:57.280Z"
-    },
-    {
-      "_id": "916535f7-907a-4c19-b81b-ba346bfd6c07",
-      "orderItems": [
-        {
-          "name": "Masala Dosa",
-          "qty": 1,
           "image": "https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           "price": 60,
           "foodItem": "1"
@@ -189,93 +85,23 @@
           "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           "price": 150,
           "foodItem": "3"
-        },
-        {
-          "name": "Cold Coffee",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 50,
-          "foodItem": "4"
         }
       ],
       "user": {
-        "_id": "1",
-        "name": "Demo Student",
-        "studentId": "stu123",
-        "password": "password",
+        "_id": "1772618445375",
+        "name": "Yuvaraj C J",
+        "username": "yuvaraj_cj",
+        "studentId": "yuvaraj_cj",
+        "regNo": "927623bec251",
+        "userType": "Hosteller",
+        "email": "yuvaraj05sekar@gmail.com",
+        "password": "20675601",
         "role": "student"
       },
-      "totalPrice": 340,
-      "tokenNumber": 2,
-      "status": "Completed",
-      "createdAt": "2026-03-04T04:50:23.141Z"
-    },
-    {
-      "_id": "a8df3256-5813-4a92-acfe-5a94957f71ba",
-      "orderItems": [
-        {
-          "name": "Cold Coffee",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 50,
-          "foodItem": "4"
-        },
-        {
-          "name": "Veg Noodles",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 80,
-          "foodItem": "2"
-        }
-      ],
-      "user": {
-        "_id": "1",
-        "name": "Demo Student",
-        "studentId": "stu123",
-        "password": "password",
-        "role": "student"
-      },
-      "totalPrice": 130,
-      "tokenNumber": 3,
-      "status": "Ready for Pickup",
-      "createdAt": "2026-03-04T08:39:01.173Z"
-    },
-    {
-      "_id": "0c4b6315-ffc7-48dd-9fa4-9d4ca2582202",
-      "orderItems": [
-        {
-          "name": "Veg Noodles",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 80,
-          "foodItem": "2"
-        },
-        {
-          "name": "Chicken Biryani",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 150,
-          "foodItem": "3"
-        },
-        {
-          "name": "Cold Coffee",
-          "qty": 1,
-          "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "price": 50,
-          "foodItem": "4"
-        }
-      ],
-      "user": {
-        "_id": "1",
-        "name": "Demo Student",
-        "studentId": "stu123",
-        "password": "password",
-        "role": "student"
-      },
-      "totalPrice": 280,
-      "tokenNumber": 4,
+      "totalPrice": 350,
+      "tokenNumber": 1,
       "status": "Ordered",
-      "createdAt": "2026-03-04T08:43:48.247Z"
+      "createdAt": "2026-03-04T10:01:21.892Z"
     }
   ]
 }

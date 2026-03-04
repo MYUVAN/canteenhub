@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
+import GooglePayButton from '@google-pay/button-react';
 
 const Home = () => {
     const [menu, setMenu] = useState([]);
@@ -160,9 +161,47 @@ const Home = () => {
                             <span>Total Amount</span>
                             <span>₹{cartTotal.toFixed(2)}</span>
                         </div>
-                        <button className="btn btn-primary" style={{ width: '100%' }} onClick={checkoutHandler}>
-                            PLACE ORDER
-                        </button>
+                        <GooglePayButton
+                            environment="TEST"
+                            paymentRequest={{
+                                apiVersion: 2,
+                                apiVersionMinor: 0,
+                                allowedPaymentMethods: [
+                                    {
+                                        type: 'CARD',
+                                        parameters: {
+                                            allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                                            allowedCardNetworks: ['MASTERCARD', 'VISA'],
+                                        },
+                                        tokenizationSpecification: {
+                                            type: 'PAYMENT_GATEWAY',
+                                            parameters: {
+                                                gateway: 'example',
+                                                gatewayMerchantId: 'exampleGatewayMerchantId',
+                                            },
+                                        },
+                                    },
+                                ],
+                                merchantInfo: {
+                                    merchantId: '12345678901234567890',
+                                    merchantName: 'CanteenHub Demo',
+                                },
+                                transactionInfo: {
+                                    totalPriceStatus: 'FINAL',
+                                    totalPriceLabel: 'Total',
+                                    totalPrice: cartTotal.toFixed(2).toString(),
+                                    currencyCode: 'INR',
+                                    countryCode: 'IN',
+                                },
+                            }}
+                            onLoadPaymentData={paymentRequest => {
+                                console.log('Payment Successful', paymentRequest);
+                                checkoutHandler();
+                            }}
+                            buttonType="pay"
+                            buttonSizeMode="fill"
+                            style={{ width: '100%', marginTop: '0.5rem' }}
+                        />
                     </div>
                 )}
             </div>
