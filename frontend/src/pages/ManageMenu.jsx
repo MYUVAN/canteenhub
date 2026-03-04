@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const ManageMenu = () => {
     const [menu, setMenu] = useState([]);
@@ -23,7 +24,7 @@ const ManageMenu = () => {
 
     const fetchMenu = async () => {
         try {
-            const res = await fetch('/api/menu');
+            const res = await fetch(`${API_BASE_URL}/menu`);
             const data = await res.json();
             setMenu(data);
             setLoading(false);
@@ -60,8 +61,8 @@ const ManageMenu = () => {
         e.preventDefault();
 
         const url = editId
-            ? `/api/menu/${editId}`
-            : '/api/menu';
+            ? `${API_BASE_URL}/menu/${editId}`
+            : `${API_BASE_URL}/menu`;
 
         const method = editId ? 'PUT' : 'POST';
 
@@ -88,7 +89,7 @@ const ManageMenu = () => {
 
     const toggleAvailability = async (id, currentStatus) => {
         try {
-            await fetch(`/api/menu/${id}`, {
+            await fetch(`${API_BASE_URL}/menu/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ const ManageMenu = () => {
     const deleteItem = async (id) => {
         if (!window.confirm('Are you sure you want to delete this item?')) return;
         try {
-            await fetch(`/api/menu/${id}`, {
+            await fetch(`${API_BASE_URL}/menu/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`

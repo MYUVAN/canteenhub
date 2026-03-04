@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { API_BASE_URL, SOCKET_URL } from '../config';
 
 const OwnerDashboard = () => {
     const [orders, setOrders] = useState([]);
-    const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0 });
+    const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0, todayRevenue: 0, monthRevenue: 0 });
     const [loading, setLoading] = useState(true);
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
     useEffect(() => {
         // Listen for new orders instantly
-        const socket = io();
+        const socket = io(SOCKET_URL);
 
         socket.on('newOrder', (order) => {
             setOrders((prev) => [order, ...prev]);
@@ -28,7 +29,7 @@ const OwnerDashboard = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const res = await fetch('/api/orders', {
+                const res = await fetch(`${API_BASE_URL}/orders`, {
                     headers: { Authorization: `Bearer ${userInfo.token}` }
                 });
                 const data = await res.json();
@@ -45,19 +46,33 @@ const OwnerDashboard = () => {
     }, [userInfo.token]);
 
     const calculateStats = (data) => {
-        const today = new Date().toDateString();
-        let currentOrders = data.filter(o => new Date(o.createdAt).toDateString() === today);
+        const today = new Date();
+        const todayString = today.toDateString();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+
+        let currentOrders = data.filter(o => new Date(o.createdAt).toDateString() === todayString);
+        let completedToday = currentOrders.filter(o => o.status === 'Completed');
+        let todayRevenue = completedToday.reduce((acc, order) => acc + (order.totalPrice || 0), 0);
+
+        let monthOrders = data.filter(o => {
+            const d = new Date(o.createdAt);
+            return d.getMonth() === currentMonth && d.getFullYear() === currentYear && o.status === 'Completed';
+        });
+        let monthRevenue = monthOrders.reduce((acc, order) => acc + (order.totalPrice || 0), 0);
 
         setStats({
             total: currentOrders.length,
             pending: currentOrders.filter(o => o.status === 'Ordered' || o.status === 'Preparing').length,
             completed: currentOrders.filter(o => o.status === 'Completed').length,
+            todayRevenue,
+            monthRevenue
         });
     };
 
     const updateStatus = async (id, status) => {
         try {
-            const res = await fetch(`/api/orders/${id}/status`, {
+            const res = await fetch(`${API_BASE_URL}/orders/${id}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,6 +117,14 @@ const OwnerDashboard = () => {
                     <div className="stat-card" style={{ borderLeftColor: 'var(--color-success)' }}>
                         <div className="stat-title">Completed</div>
                         <div className="stat-value text-success">{stats.completed}</div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeftColor: 'var(--color-primary)' }}>
+                        <div className="stat-title">Today's Revenue</div>
+                        <div className="stat-value" style={{ color: 'var(--color-primary)' }}>₹{stats.todayRevenue.toFixed(2)}</div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeftColor: 'var(--color-primary)' }}>
+                        <div className="stat-title">Monthly Revenue</div>
+                        <div className="stat-value" style={{ color: 'var(--color-primary)' }}>₹{stats.monthRevenue.toFixed(2)}</div>
                     </div>
                 </div>
 

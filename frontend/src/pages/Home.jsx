@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const Home = () => {
     const [menu, setMenu] = useState([]);
@@ -12,7 +13,7 @@ const Home = () => {
 
     const fetchMenu = async () => {
         try {
-            const res = await fetch('/api/menu');
+            const res = await fetch(`${API_BASE_URL}/menu`);
             const data = await res.json();
             setMenu(data);
             setLoading(false);
@@ -60,7 +61,7 @@ const Home = () => {
         }));
 
         try {
-            const res = await fetch('/api/orders', {
+            const res = await fetch(`${API_BASE_URL}/orders`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,10 +87,11 @@ const Home = () => {
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h1 className="header-title" style={{ margin: 0 }}>Canteen Menu</h1>
-                <button className="btn btn-primary" onClick={() => setIsSidebarOpen(true)}>
-                    🛒 Cart ({cart.reduce((a, c) => a + c.qty, 0)})
-                </button>
             </div>
+
+            <button className="btn btn-primary floating-cart-btn" onClick={() => setIsSidebarOpen(true)}>
+                🛒 Cart ({cart.reduce((a, c) => a + c.qty, 0)})
+            </button>
 
             {loading ? (
                 <p>Loading menu...</p>

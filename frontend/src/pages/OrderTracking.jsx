@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { API_BASE_URL, SOCKET_URL } from '../config';
 
 const OrderTracking = () => {
     const [orders, setOrders] = useState([]);
@@ -11,7 +12,7 @@ const OrderTracking = () => {
         fetchMyOrders();
 
         // Socket.io connection for real-time order updates
-        const socket = io();
+        const socket = io(SOCKET_URL);
 
         if (userInfo && userInfo._id) {
             socket.on(`order-status-${userInfo._id}`, (updatedOrder) => {
@@ -32,7 +33,7 @@ const OrderTracking = () => {
 
     const fetchMyOrders = async () => {
         try {
-            const res = await fetch('/api/orders/myorders', {
+            const res = await fetch(`${API_BASE_URL}/orders/myorders`, {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`
                 }

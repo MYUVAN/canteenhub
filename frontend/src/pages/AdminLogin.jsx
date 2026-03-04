@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 const AdminLogin = ({ setUser }) => {
     const [adminId, setAdminId] = useState('');
@@ -22,7 +23,7 @@ const AdminLogin = ({ setUser }) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await fetch('/api/auth/login', {
+            const res = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
