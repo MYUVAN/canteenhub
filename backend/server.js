@@ -56,9 +56,18 @@ io.on('connection', (socket) => {
 
 app.set('io', io);
 
-// Default route
+// Serve frontend static files
+const frontendDistPath = path.resolve('../frontend/dist');
+app.use('/canteenhub', express.static(frontendDistPath));
+
+// Fallback for single-page app routing
+app.get(/^\/canteenhub\/(.*)/, (req, res) => {
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
+});
+
+// Default route redirect
 app.get('/', (req, res) => {
-    res.send('College Canteen Ordering System API is running on JSON DB...');
+    res.redirect('/canteenhub/');
 });
 
 import authRoutes from './routes/authRoutes.js';

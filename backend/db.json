@@ -21,7 +21,7 @@
       "name": "Masala Dosa",
       "price": 60,
       "category": "Meals",
-      "image": "https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Rameshwaram_Cafe_Dosa.jpg/500px-Rameshwaram_Cafe_Dosa.jpg",
       "isAvailable": true
     },
     {
@@ -95,6 +95,154 @@
       "tokenNumber": 2,
       "status": "Ordered",
       "createdAt": "2026-02-27T04:13:31.008Z"
+    },
+    {
+      "_id": "51735107-5f29-4dd5-bfb8-dd9942a5b651",
+      "orderItems": [
+        {
+          "name": "Veg Noodles",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 80,
+          "foodItem": "2"
+        },
+        {
+          "name": "Chicken Biryani",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 150,
+          "foodItem": "3"
+        },
+        {
+          "name": "Masala Dosa",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 60,
+          "foodItem": "1"
+        }
+      ],
+      "user": {
+        "_id": "1",
+        "name": "Demo Student",
+        "studentId": "stu123",
+        "password": "password",
+        "role": "student"
+      },
+      "totalPrice": 290,
+      "tokenNumber": 1,
+      "status": "Completed",
+      "createdAt": "2026-03-04T04:42:57.280Z"
+    },
+    {
+      "_id": "916535f7-907a-4c19-b81b-ba346bfd6c07",
+      "orderItems": [
+        {
+          "name": "Masala Dosa",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 60,
+          "foodItem": "1"
+        },
+        {
+          "name": "Veg Noodles",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 80,
+          "foodItem": "2"
+        },
+        {
+          "name": "Chicken Biryani",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 150,
+          "foodItem": "3"
+        },
+        {
+          "name": "Cold Coffee",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 50,
+          "foodItem": "4"
+        }
+      ],
+      "user": {
+        "_id": "1",
+        "name": "Demo Student",
+        "studentId": "stu123",
+        "password": "password",
+        "role": "student"
+      },
+      "totalPrice": 340,
+      "tokenNumber": 2,
+      "status": "Completed",
+      "createdAt": "2026-03-04T04:50:23.141Z"
+    },
+    {
+      "_id": "a8df3256-5813-4a92-acfe-5a94957f71ba",
+      "orderItems": [
+        {
+          "name": "Cold Coffee",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 50,
+          "foodItem": "4"
+        },
+        {
+          "name": "Veg Noodles",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 80,
+          "foodItem": "2"
+        }
+      ],
+      "user": {
+        "_id": "1",
+        "name": "Demo Student",
+        "studentId": "stu123",
+        "password": "password",
+        "role": "student"
+      },
+      "totalPrice": 130,
+      "tokenNumber": 3,
+      "status": "Ready for Pickup",
+      "createdAt": "2026-03-04T08:39:01.173Z"
+    },
+    {
+      "_id": "0c4b6315-ffc7-48dd-9fa4-9d4ca2582202",
+      "orderItems": [
+        {
+          "name": "Veg Noodles",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 80,
+          "foodItem": "2"
+        },
+        {
+          "name": "Chicken Biryani",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 150,
+          "foodItem": "3"
+        },
+        {
+          "name": "Cold Coffee",
+          "qty": 1,
+          "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "price": 50,
+          "foodItem": "4"
+        }
+      ],
+      "user": {
+        "_id": "1",
+        "name": "Demo Student",
+        "studentId": "stu123",
+        "password": "password",
+        "role": "student"
+      },
+      "totalPrice": 280,
+      "tokenNumber": 4,
+      "status": "Ordered",
+      "createdAt": "2026-03-04T08:43:48.247Z"
     }
   ]
 }
