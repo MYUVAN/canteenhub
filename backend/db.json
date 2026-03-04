@@ -13,6 +13,39 @@
       "studentId": "admin",
       "password": "admin",
       "role": "admin"
+    },
+    {
+      "_id": "1772616580564",
+      "name": "Yuvaraj C J",
+      "username": "yuvaraj_cj",
+      "studentId": "yuvaraj_cj",
+      "regNo": "927623bec251",
+      "userType": "Hosteller",
+      "email": "yuvaraj05sekar@gmail.com",
+      "password": "20675601",
+      "role": "student"
+    },
+    {
+      "_id": "1772617439178",
+      "name": "yogeshwaran S",
+      "username": "yogesh_s",
+      "studentId": "yogesh_s",
+      "regNo": "927623BEC249",
+      "userType": "Dayscholar",
+      "email": "yogeshsubramaniyum@gmail.com",
+      "password": "1234567",
+      "role": "student"
+    },
+    {
+      "_id": "1772617697592",
+      "name": "Yasvonth V L",
+      "username": "yasva_v_l",
+      "studentId": "yasva_v_l",
+      "regNo": "927623bec246",
+      "userType": "Hosteller",
+      "email": "yasvonthlakshmanan@gmail.com",
+      "password": "1234567",
+      "role": "student"
     }
   ],
   "foodItems": [

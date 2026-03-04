@@ -47,9 +47,8 @@ const Register = () => {
             const data = await res.json();
 
             if (res.ok) {
-                // Instantly log them in or redirect to login
-                localStorage.setItem('userInfo', JSON.stringify(data));
-                window.location.href = '#/'; // Hard reload/redirect to home
+                alert('Registration successful! Please login.');
+                navigate('/login');
             } else {
                 setError(data.message || 'Registration failed');
             }
