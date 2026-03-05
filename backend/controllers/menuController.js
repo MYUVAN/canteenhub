@@ -1,10 +1,9 @@
-import { getDb, saveDb } from '../server.js';
-import { v4 as uuidv4 } from 'uuid';
+import FoodItem from '../models/FoodItem.js';
 
 export const getMenu = async (req, res) => {
     try {
-        const db = getDb();
-        res.json(db.foodItems);
+        const items = await FoodItem.find({});
+        res.json(items);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -13,22 +12,17 @@ export const getMenu = async (req, res) => {
 export const createFoodItem = async (req, res) => {
     try {
         const { name, price, image, category, isAvailable } = req.body;
-        const db = getDb();
 
-        const newItem = {
-            _id: uuidv4(),
+        const item = new FoodItem({
             name,
             price,
             image,
             category,
-            isAvailable,
-            createdAt: new Date().toISOString()
-        };
+            isAvailable
+        });
 
-        db.foodItems.push(newItem);
-        saveDb(db);
-
-        res.status(201).json(newItem);
+        const createdItem = await item.save();
+        res.status(201).json(createdItem);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -37,17 +31,18 @@ export const createFoodItem = async (req, res) => {
 export const updateFoodItem = async (req, res) => {
     try {
         const { name, price, image, category, isAvailable } = req.body;
-        const db = getDb();
 
-        const itemIndex = db.foodItems.findIndex(i => i._id === req.params.id);
+        const item = await FoodItem.findById(req.params.id);
 
-        if (itemIndex > -1) {
-            db.foodItems[itemIndex] = {
-                ...db.foodItems[itemIndex],
-                ...req.body
-            };
-            saveDb(db);
-            res.json(db.foodItems[itemIndex]);
+        if (item) {
+            item.name = name || item.name;
+            item.price = price || item.price;
+            item.image = image || item.image;
+            item.category = category || item.category;
+            item.isAvailable = isAvailable !== undefined ? isAvailable : item.isAvailable;
+
+            const updatedItem = await item.save();
+            res.json(updatedItem);
         } else {
             res.status(404).json({ message: 'Food item not found' });
         }
@@ -58,12 +53,10 @@ export const updateFoodItem = async (req, res) => {
 
 export const deleteFoodItem = async (req, res) => {
     try {
-        const db = getDb();
-        const itemIndex = db.foodItems.findIndex(i => i._id === req.params.id);
+        const item = await FoodItem.findById(req.params.id);
 
-        if (itemIndex > -1) {
-            db.foodItems.splice(itemIndex, 1);
-            saveDb(db);
+        if (item) {
+            await item.deleteOne();
             res.json({ message: 'Food item removed' });
         } else {
             res.status(404).json({ message: 'Food item not found' });

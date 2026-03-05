@@ -119,14 +119,7 @@ const ManageMenu = () => {
     };
 
     return (
-        <div className="dashboard-grid">
-            <aside className="sidebar">
-                <nav className="sidebar-nav">
-                    <a href="/owner-dashboard" className="sidebar-link">Live Queue</a>
-                    <a href="/owner-menu" className="sidebar-link active">Menu Manager</a>
-                </nav>
-            </aside>
-
+        <div>
             <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                     <h1 className="header-title" style={{ margin: 0 }}>Manage Menu</h1>

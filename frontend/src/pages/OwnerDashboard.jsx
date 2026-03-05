@@ -93,14 +93,7 @@ const OwnerDashboard = () => {
     };
 
     return (
-        <div className="dashboard-grid">
-            <aside className="sidebar">
-                <nav className="sidebar-nav">
-                    <a href="/owner-dashboard" className="sidebar-link active">Live Queue</a>
-                    <a href="/owner-menu" className="sidebar-link">Menu Manager</a>
-                </nav>
-            </aside>
-
+        <div>
             <div>
                 <h1 className="header-title">Live Order Queue</h1>
 

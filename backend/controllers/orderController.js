@@ -1,43 +1,38 @@
-import { getDb, saveDb } from '../server.js';
-import { v4 as uuidv4 } from 'uuid';
+import Order from '../models/Order.js';
 
-const generateTokenNumber = (db) => {
+const generateTokenNumber = async () => {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 
-    const todayOrders = db.orders.filter(o => new Date(o.createdAt) >= startOfDay);
-    return todayOrders.length + 1;
+    const count = await Order.countDocuments({ createdAt: { $gte: startOfDay } });
+    return count + 1;
 };
 
 export const addOrderItems = async (req, res) => {
     try {
         const { orderItems, totalPrice } = req.body;
-        const db = getDb();
 
         if (orderItems && orderItems.length === 0) {
             return res.status(400).json({ message: 'No order items' });
         }
 
-        const tokenNumber = generateTokenNumber(db);
+        const tokenNumber = await generateTokenNumber();
 
-        const newOrder = {
-            _id: uuidv4(),
+        const order = new Order({
             orderItems,
-            user: req.user, // Store full user object info locally to avoid populate logic 
+            user: req.user._id,
             totalPrice,
             tokenNumber,
-            status: 'Ordered',
-            createdAt: new Date().toISOString()
-        };
+            status: 'Ordered'
+        });
 
-        db.orders.push(newOrder);
-        saveDb(db);
+        const createdOrder = await order.save();
 
         // Notify owner via Socket.io
         const io = req.app.get('io');
-        io.emit('new-order', newOrder);
+        io.emit('new-order', createdOrder);
 
-        res.status(201).json(newOrder);
+        res.status(201).json(createdOrder);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: error.message });
@@ -46,8 +41,7 @@ export const addOrderItems = async (req, res) => {
 
 export const getOrderById = async (req, res) => {
     try {
-        const db = getDb();
-        const order = db.orders.find(o => o._id === req.params.id);
+        const order = await Order.findById(req.params.id).populate('user', 'name studentId');
 
         if (order) {
             res.json(order);
@@ -61,11 +55,7 @@ export const getOrderById = async (req, res) => {
 
 export const getMyOrders = async (req, res) => {
     try {
-        const db = getDb();
-        const orders = db.orders
-            .filter(o => o.user._id === req.user._id)
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+        const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -74,13 +64,12 @@ export const getMyOrders = async (req, res) => {
 
 export const getOrders = async (req, res) => {
     try {
-        const db = getDb();
         const startOfDay = new Date();
         startOfDay.setHours(0, 0, 0, 0);
 
-        const orders = db.orders
-            .filter(o => new Date(o.createdAt) >= startOfDay)
-            .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // FIFO format
+        const orders = await Order.find({ createdAt: { $gte: startOfDay } })
+            .populate('user', 'name studentId')
+            .sort({ createdAt: 1 }); // FIFO format
 
         res.json(orders);
     } catch (error) {
@@ -90,18 +79,17 @@ export const getOrders = async (req, res) => {
 
 export const updateOrderStatus = async (req, res) => {
     try {
-        const db = getDb();
-        const orderIndex = db.orders.findIndex(o => o._id === req.params.id);
+        const order = await Order.findById(req.params.id);
 
-        if (orderIndex > -1) {
-            db.orders[orderIndex].status = req.body.status || db.orders[orderIndex].status;
-            saveDb(db);
+        if (order) {
+            order.status = req.body.status || order.status;
+            const updatedOrder = await order.save();
 
-            const updatedOrder = db.orders[orderIndex];
+            const userId = order.user.toString();
 
             // Notify specific user via Socket.io
             const io = req.app.get('io');
-            io.emit(`order-status-${updatedOrder.user._id}`, updatedOrder);
+            io.emit(`order-status-${userId}`, updatedOrder);
 
             res.json(updatedOrder);
         } else {
