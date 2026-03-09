@@ -38,14 +38,18 @@ app.set('io', io);
 const frontendDistPath = path.resolve('../frontend/dist');
 app.use('/canteenhub', express.static(frontendDistPath));
 
-// Fallback for single-page app routing
+// Fallback for single-page app routing (only if file exists)
 app.get(/^\/canteenhub\/(.*)/, (req, res) => {
-    res.sendFile(path.join(frontendDistPath, 'index.html'));
+    res.sendFile(path.join(frontendDistPath, 'index.html'), (err) => {
+        if (err) {
+            res.status(200).send("CanteenHub API is running. The frontend is hosted separately on Vercel.");
+        }
+    });
 });
 
 // Default route redirect
 app.get('/', (req, res) => {
-    res.redirect('/canteenhub/');
+    res.status(200).json({ message: "Welcome to the CanteenHub API. The server is online and running!" });
 });
 
 import authRoutes from './routes/authRoutes.js';
