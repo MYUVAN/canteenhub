@@ -55,7 +55,20 @@ const Login = ({ setUser }) => {
     };
 
     return (
-        <div className="auth-container">
+        <div className="auth-container" style={{ position: 'relative' }}>
+            {/* Top Left Logo (Second Image) */}
+            <img 
+                src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/cover/1283.jpg?r=1" 
+                alt="Left Background" 
+                style={{ position: 'absolute', top: '30px', left: '30px', height: '80px', width: 'auto', objectFit: 'contain' }} 
+            />
+            {/* Top Right Logo (First Image) */}
+            <img 
+                src="https://pbs.twimg.com/profile_images/1718869852624982016/KnO7MtGm_400x400.jpg" 
+                alt="Right Background" 
+                style={{ position: 'absolute', top: '30px', right: '30px', height: '80px', width: 'auto', objectFit: 'contain', borderRadius: '50%' }} 
+            />
+            
             <div className="auth-card">
                 <h2 className="auth-title">Student Login</h2>
                 <p className="auth-subtitle">Login to Canteen Ordering System</p>
