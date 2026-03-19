@@ -49,9 +49,10 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-bg);
-  background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background: linear-gradient(rgba(248, 249, 250, 0.92), rgba(248, 249, 250, 0.92)), url('https://image-static.collegedunia.com/public/reviewPhotos/522953/IMG_20231220_230255.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--color-text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -203,30 +204,17 @@ select {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background: transparent;
   padding: 2rem;
-  background: linear-gradient(-45deg, #fc8019, #e23744, #ff9a9e, #fecbef);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 .auth-card {
-  background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: var(--color-surface);
   padding: 3rem;
   border-radius: var(--radius-xl);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 450px;
-  position: relative;
-  z-index: 10;
 }
 
 .auth-title {
