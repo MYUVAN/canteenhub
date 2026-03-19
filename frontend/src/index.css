@@ -50,6 +50,8 @@
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
+  background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+  background-size: 20px 20px;
   color: var(--color-text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -201,19 +203,30 @@ select {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: 
-    linear-gradient(135deg, rgba(248, 249, 250, 0.85) 0%, rgba(233, 236, 239, 0.85) 100%),
-    url('https://upload.wikimedia.org/wikipedia/en/2/25/M._Kumarasamy_College_of_Engineering_logo.png') center/500px no-repeat fixed;
   padding: 2rem;
+  background: linear-gradient(-45deg, #fc8019, #e23744, #ff9a9e, #fecbef);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .auth-card {
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   padding: 3rem;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 450px;
+  position: relative;
+  z-index: 10;
 }
 
 .auth-title {
