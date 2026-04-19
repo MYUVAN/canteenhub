@@ -7,6 +7,7 @@ import {
     updateOrderStatus,
 } from '../controllers/orderController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
+import Order from '../models/Order.js';
 
 const router = express.Router();
 
@@ -16,6 +17,23 @@ router.route('/')
 
 router.route('/myorders')
     .get(protect, getMyOrders);
+
+router.get('/latest-ready', async (req, res) => {
+  try {
+    const order = await Order.findOne({ status: 'ready' })
+      .sort({ createdAt: -1 });
+    if (!order) return res.status(404).json({ message: 'No ready orders' });
+    res.json({
+      token: order.tokenNumber,
+      status: order.status,
+      studentName: order.studentId,
+      items: order.items.map(i => i.name).join(', '),
+      amount: order.totalAmount
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 router.route('/:id')
     .get(protect, getOrderById);
