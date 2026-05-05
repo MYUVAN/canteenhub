@@ -20,15 +20,16 @@ router.route('/myorders')
 
 router.get('/latest-ready', async (req, res) => {
   try {
-    const order = await Order.findOne({ status: 'ready' })
-      .sort({ createdAt: -1 });
+    const order = await Order.findOne({ status: 'Ready for Pickup' })
+      .sort({ createdAt: -1 })
+      .populate('user', 'name studentId');
     if (!order) return res.status(404).json({ message: 'No ready orders' });
     res.json({
       token: order.tokenNumber,
       status: order.status,
-      studentName: order.studentId,
-      items: order.items.map(i => i.name).join(', '),
-      amount: order.totalAmount
+      studentName: order.user ? order.user.name : 'Unknown',
+      items: order.orderItems.map(i => i.name).join(', '),
+      amount: order.totalPrice
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
